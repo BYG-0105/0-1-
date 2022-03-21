@@ -271,7 +271,7 @@ public class Frame extends JFrame
 		        	  {
 		        		  try {
 
-		        			    File writeName = new File("D:\\2021-2022\\大三下\\软件工程经济\\Git\\0-1\\0-1-knapsack\\data"+dataname+".txt"); // 相对路径，如果没有则要建立一个新的output.txt文件
+		        			    File writeName = new File("D:\\2021-2022\\大三下\\软件工程经济\\Git\\0-1\\0-1-knapsack\\result\\data"+dataname+".txt"); // 相对路径，如果没有则要建立一个新的output.txt文件
 		        			    dataname++;
 		        			    if(!writeName.exists()) {
 		        			        writeName.createNewFile(); // 创建新文件,有同名的文件的话直接覆盖
