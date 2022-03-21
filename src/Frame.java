@@ -145,7 +145,7 @@ public class Frame extends JFrame
 		        	  }
 		        	  else if(select == 2)
 		        	  {
-		        		  long start=System.currentTimeMillis();
+		        		  long start=System.nanoTime();
 		        		  
 		        		  Algorithm a = new Algorithm();
 		        		  double[][] x = new double[1000][1000];
@@ -155,7 +155,7 @@ public class Frame extends JFrame
 		        		  }
 
 		        		  x = a.Greedy(x,w,v,types,beibaosize);
-		        		  long end=System.currentTimeMillis();
+		        		  long end=System.nanoTime();
 		        		  long Time=end-start;
 		        		  
 		        		  Tresult.setText(null);
@@ -172,14 +172,18 @@ public class Frame extends JFrame
 		        			  Tresult.append(x[i][0]+", ");
 		        		  }
 		        		  Tresult.append(x[types-1][0]+" }"+"\n");
-		        		  Tresult.append("运行时间为："+Time+"毫秒\n");
+		        		  Tresult.append("运行时间为："+(double)Time/1000000000+" s\n");
 		        		  
 		        	  }
 		        	  else if(select == 3)
 		        	  {
+		        		  long start=System.nanoTime();
+
 		        		  Algorithm a = new Algorithm();
 		        		  double[] x = new double[1000];
 		        		  x = a.Backtracking(w,v,types,beibaosize);
+		        		  long end=System.nanoTime();
+		        		  long Time=end-start;
 		        		  Tresult.setText(null);
 		        		  Tresult.append("最大价值为："+x[types]+"\n");
 		        		  Tresult.append("物品（重量）为：{ ");
@@ -194,12 +198,18 @@ public class Frame extends JFrame
 		        			  Tresult.append((int)x[i]+", ");
 		        		  }
 		        		  Tresult.append((int)x[types-1]+" }"+"\n");
+		        		  Tresult.append("运行时间为："+(double)Time/1000000000+" s\n");
+
 		        	  }
 		        	  else if(select == 4)
 		        	  {
+		        		  long start=System.nanoTime();
+
 		        		  Algorithm a = new Algorithm();
 		        		  int[] x = new int[100];
 		        		  x = a.Dynamic(w,v,types,beibaosize);
+		        		  long end=System.nanoTime();
+		        		  long Time=end-start;
 		        		  Tresult.setText(null);
 		        		  Tresult.append("最大价值为："+x[types]+"\n");
 		        		  Tresult.append("物品（重量）为：{ ");
@@ -214,6 +224,8 @@ public class Frame extends JFrame
 		        			  Tresult.append(x[i]+", ");
 		        		  }
 		        		  Tresult.append(x[types-1]+" }"+"\n");
+		        		  Tresult.append("运行时间为："+(double)Time/1000000000+" s\n");
+
 		        	  }
 		        	  else if(select == 5)
 		        	  {
