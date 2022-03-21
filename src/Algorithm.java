@@ -193,9 +193,17 @@ public class Algorithm {
 			if (i < j)
 			{
 				//将较小记录交换到前面
+				 System.out.println(r[i][1]+"i" );
+   			     System.out.println(r[i][0]+"i"  );
+				 System.out.println(r[j][1]+"j" );
+   			     System.out.println(r[j][0]+"j"  );
+
 				double[] temp = new double[100];
 				temp = r[i]; r[i] = r[j]; r[j] = temp;
-				 
+				 System.out.println(r[i][1]+"i" );
+   			     System.out.println(r[i][0]+"i"  );
+				 System.out.println(r[j][1]+"j" );
+   			     System.out.println(r[j][0]+"j"  );
 				
 				i++;
 			}

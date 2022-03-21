@@ -84,6 +84,7 @@ public class Frame extends JFrame
 */
 	   Twv = new JTextArea(20,30);//给定列数和行数
 	   Tresult = new JTextArea(20,30);//给定列数和行数
+	   Twv.setEditable(false);
 		add(Twv,BorderLayout.SOUTH);//边框布局管理器
 		add(Tresult,BorderLayout.SOUTH);//边框布局管理器
 
@@ -142,6 +143,11 @@ public class Frame extends JFrame
 		        		  Algorithm a = new Algorithm();
 		        		  double[] x = new double[100];
 		        		  x = a.Greedy(w,v,types,beibaosize);
+		        		  
+		        		  for(int i = 0;i<types;i++)
+		        		  {
+		        			  
+		        		  }
 		        	  }
 		        	  else if(select == 3)
 		        	  {
@@ -163,9 +169,12 @@ public class Frame extends JFrame
 		        		  {
 		        			  c[i][0] =(double)v[i]/(double)w[i];
 		        			  c[i][1] = i+1;
+		        			  System.out.println(c[i][1] );
+		        			  System.out.println(c[i][0] );
+
 		        		  }
 		        		  Algorithm a = new Algorithm();
-		        		  c = a.QuickSort(c, 0, types);
+		        		  c = a.QuickSort(c, 0, types-1);
 		        		  for(int i = 0;i < types;i++)
 		        		  {
 		        			  Tresult.append("第"+(int)c[i][1]+"个物品的重量比为："+c[i][0]+"\n");
@@ -371,6 +380,7 @@ public class Frame extends JFrame
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
+							Twv.setText(null);
 							 Twv.append(" 物品个数: " +types+"    "+" 背包容量: " +beibaosize+"\n");
 							 int i = 1;
 		        		  for (Goods tmp : list)
