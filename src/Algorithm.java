@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 
 public class Algorithm {
 	/*构造器*/
@@ -182,23 +183,52 @@ public class Algorithm {
 		     return x;    //返回背包取得的最大价值
 
 	}
-	//快速排序
+
+	
+	
+	public double[][] Selectsort(double r[][], int first, int end){ 
+		 //插入排序
+        for (int i = 1; i < end; i++) {
+            //外层循环，从第二个开始比较
+            for (int j = i; j > 0; j--) {
+                //内存循环，与前面排好序的数据比较，如果后面的数据小于前面的则交换
+                if (r[j][0] < r[j - 1][0]) {
+                    double[] temp = new double[100];
+                    temp = r[j - 1];
+                    r[j - 1] = r[j];
+                    r[j] = temp;
+                } else {
+                    //如果不小于，说明插入完毕，退出内层循环
+                    break;
+                }
+            }
+        }
+        return r;
+	}
+	
+}
+
+
+/*
+
+ 	//快速排序
 	int Partition(double r[][], int first, int end)//划分
 	{				
 		int i = first, j = end;
 		//初始化待划分区间
 		while (i < j)	{
-			while (i < j && r[i][0] <= r[j][0]) j--;
+			while (i < j && compare(r[i][0] ,r[j][0]) <= 0) j--;
 			//右侧扫描
 			if (i < j)
 			{
 				//将较小记录交换到前面
+				
 				 System.out.println(r[i][1]+"i" );
    			     System.out.println(r[i][0]+"i"  );
 				 System.out.println(r[j][1]+"j" );
    			     System.out.println(r[j][0]+"j"  );
-
 				double[] temp = new double[100];
+				
 				temp = r[i]; r[i] = r[j]; r[j] = temp;
 				 System.out.println(r[i][1]+"i" );
    			     System.out.println(r[i][0]+"i"  );
@@ -207,7 +237,7 @@ public class Algorithm {
 				
 				i++;
 			}
-			while (i < j && r[i][0] <= r[j][0]) i++;
+			while (i < j && compare(r[i][0] ,r[j][0]) <= 0) i++;
 			//左侧扫描
 			if (i < j) 
 			{
@@ -226,14 +256,39 @@ public class Algorithm {
 	public double[][] QuickSort(double r[][], int first, int end){  
 		//快速排序
 		int pivot;
+		for(int i = 0;i <= end;i++)
+	{
+		 System.out.print(r[i][1]+"i   " );
+		     System.out.println(r[i][0]+"i"  );
+	}
+		 System.out.println("i                 "  );
+	
+
 		if (first < end) {
 			pivot = Partition(r, first, end);
 			//划分，pivot是轴值在序列中的位置
-			QuickSort(r, first, pivot - 1);
+			r=QuickSort(r, first, pivot - 1);
 			//求解子问题1，对左侧子序列进行快速排序
-			QuickSort(r, pivot + 1, end);
-			//求解子问题2，对右侧子序列进行快速排序
+			r=QuickSort(r, pivot + 1, end);
+			//求解子问题2，对右侧子序列进行快速排序	
+			for(int i = 0;i <= end;i++)
+		{
+			 System.out.print(r[i][1]+"i   " );
+			     System.out.println(r[i][0]+"i"  );
 		}
+			 System.out.println("i                 "  );
+		}
+
       return r;
 	}
-}
+	
+	int compare(double d1,double d2)
+	{
+		BigDecimal d11 = new BigDecimal(d1);
+		BigDecimal d22 = new BigDecimal(d2);
+		int res =  d11.compareTo(d22); 
+	    return res;
+	}
+	
+ 
+*/

@@ -85,6 +85,7 @@ public class Frame extends JFrame
 	   Twv = new JTextArea(20,30);//给定列数和行数
 	   Tresult = new JTextArea(20,30);//给定列数和行数
 	   Twv.setEditable(false);
+	   Tresult.setEditable(false);
 		add(Twv,BorderLayout.SOUTH);//边框布局管理器
 		add(Tresult,BorderLayout.SOUTH);//边框布局管理器
 
@@ -165,16 +166,17 @@ public class Frame extends JFrame
 		        	  }
 		        	  else if(select == 6)
 		        	  {
+		        		  Tresult.setText(null);
 		        		  for(int i = 0;i < types;i++)
 		        		  {
 		        			  c[i][0] =(double)v[i]/(double)w[i];
 		        			  c[i][1] = i+1;
-		        			  System.out.println(c[i][1] );
-		        			  System.out.println(c[i][0] );
+		        			 // System.out.println(c[i][1] );
+		        			  //System.out.println(c[i][0] );
 
 		        		  }
 		        		  Algorithm a = new Algorithm();
-		        		  c = a.QuickSort(c, 0, types-1);
+		        		  c = a.Selectsort(c, 0, types);
 		        		  for(int i = 0;i < types;i++)
 		        		  {
 		        			  Tresult.append("第"+(int)c[i][1]+"个物品的重量比为："+c[i][0]+"\n");
@@ -328,7 +330,7 @@ public class Frame extends JFrame
 		        	  
 		        	  
 		        	  
-
+		        	 list.clear();
 	        	     int Gweight;
 		        	 double Gvalue;
 		        		  String filePath = "D:\\2021-2022\\大三下\\软件工程经济\\Git\\0-1\\0-1-knapsack\\res\\beibao"+fileId+".in";
