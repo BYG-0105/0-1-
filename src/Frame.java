@@ -187,7 +187,25 @@ public class Frame extends JFrame
 		        	  }
 		        	  else if(select == 5)
 		        	  {
-		        		  
+		        		 
+		        		  JFrame f = new JFrame();
+//		        		  JButton button = new JButton("关闭");;//按钮，查看0-1背包问题结果
+//		        		  button.addActionListener(new ActionListener()
+//		   		         {      
+//		   		           public void actionPerformed(ActionEvent event)
+//		   		           {    
+//		   		        	  f.dispose();
+//		   		           }
+//		   		        });
+//		        		  JPANEL A = NEW JPANEL();
+//		        		  A.ADD(BUTTON);
+		        		  f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		        		 // f.add(a);
+		        		  f.add(new Paint(w,v,types));
+		        		  f.setSize(400,300);
+		        		  f.setLocation(240,200);
+		        		  f.setVisible(true);
+		        		 
 		        	  }
 		        	  else if(select == 6)
 		        	  {

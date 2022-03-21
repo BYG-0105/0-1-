@@ -47,6 +47,11 @@ public class Algorithm {
 		 maxValue+=v[i] ;
 		 C=C-w[i] ;
 		}
+		for(int j = 0;j < n;j++)
+	{
+		 System.out.println(x[j]+"i   " );
+		    
+	} System.out.println(maxValue+"iii"  );
 		x[i]= (double)C/w[i];
 		maxValue+=x[i]*v[i];
 		x[i+1] =maxValue ;
