@@ -146,30 +146,47 @@ public class Frame extends JFrame
 		        	  else if(select == 2)
 		        	  {
 		        		  Algorithm a = new Algorithm();
-		        		  double[] x = new double[100];
-		        		  x = a.Greedy(w,v,types,beibaosize);
+		        		  double[][] x = new double[1000][1000];
+		        		  for(int i = 0;i < types;i++)
+		        		  {
+		        			  x[i][1] = i;
+		        		  }
+
+		        		  x = a.Greedy(x,w,v,types,beibaosize);
+		        		  Tresult.setText(null);
+		        		  Tresult.append("最大价值为："+x[types][0]+"\n");
+		        		  Tresult.append("物品（重量）：{ ");
+		        		  for(int i = 0;i < types-1;i++)
+		        		  {
+		        			  Tresult.append(w[(int)x[i][1]]+", ");
+		        		  }
+		        		  Tresult.append(w[(int)x[types-1][1]]+" }"+"\n");
+		        		  Tresult.append("解向量为：{ ");
+		        		  for(int i = 0;i<types-1;i++)
+		        		  {
+		        			  Tresult.append(x[i][0]+", ");
+		        		  }
+		        		  Tresult.append(x[types-1][0]+" }"+"\n");
+		        	  }
+		        	  else if(select == 3)
+		        	  {
+		        		  Algorithm a = new Algorithm();
+		        		  double[] x = new double[1000];
+		        		  x = a.Backtracking(w,v,types,beibaosize);
 		        		  Tresult.setText(null);
 		        		  Tresult.append("最大价值为："+x[types]+"\n");
+		        		  Tresult.append("物品（重量）为：{ ");
+		        		  for(int i = 0;i<types-1;i++)
+		        		  {
+		        			  Tresult.append(w[i]+", ");
+		        		  }
+		        		  Tresult.append(w[types-1]+" }"+"\n");
 		        		  Tresult.append("解向量为：{ ");
 		        		  for(int i = 0;i<types-1;i++)
 		        		  {
 		        			  Tresult.append((int)x[i]+", ");
 		        		  }
 		        		  Tresult.append((int)x[types-1]+" }"+"\n");
-		        	  }
-		        	  else if(select == 3)
-		        	  {
-		        		  Algorithm a = new Algorithm();
-		        		  int[] x = new int[100];
-		        		  x = a.Backtracking(w,v,types,beibaosize);
-		        		  Tresult.setText(null);
-		        		  Tresult.append("最大价值为："+x[types]+"\n");
-		        		  Tresult.append("解向量为：{ ");
-		        		  for(int i = 0;i<types-1;i++)
-		        		  {
-		        			  Tresult.append(x[i]+", ");
-		        		  }
-		        		  Tresult.append(x[types-1]+" }"+"\n");
 		        	  }
 		        	  else if(select == 4)
 		        	  {
@@ -178,6 +195,12 @@ public class Frame extends JFrame
 		        		  x = a.Dynamic(w,v,types,beibaosize);
 		        		  Tresult.setText(null);
 		        		  Tresult.append("最大价值为："+x[types]+"\n");
+		        		  Tresult.append("物品（重量）为：{ ");
+		        		  for(int i = 0;i<types-1;i++)
+		        		  {
+		        			  Tresult.append(w[i]+", ");
+		        		  }
+		        		  Tresult.append(w[types-1]+" }"+"\n");
 		        		  Tresult.append("解向量为：{ ");
 		        		  for(int i = 0;i<types-1;i++)
 		        		  {

@@ -6,9 +6,9 @@ public class Algorithm {
 	{	}
 	
 	//贪心算法
-	public double[] Greedy(int w[],int v[],int n, int C)
+	public double[][] Greedy(double[][] x ,int w[],int v[],int n, int C)
 	{
-		 double[] c = new double[100];
+		 double[] c = new double[1000];
 		 for(int i = 0;i < n;i++)
 		  {
 			  c[i] =(double)v[i]/(double)w[i];
@@ -34,36 +34,202 @@ public class Algorithm {
 				 }
 			 }
 		 }
-		 double[] x = new double[100];
+		
 		 for(int i = 0;i < n;i++)
 		 {
-			 x[i] = 0;
+			 x[i][0] = 0;
 		 }
 		int maxValue= 0;
 		int i;
 		for (i=0; w[i]<C; i++ )
 		{
-		 x[i]=1;
+		 x[i][0]=1;
 		 maxValue+=v[i] ;
 		 C=C-w[i] ;
 		}
-		for(int j = 0;j < n;j++)
-	{
-		 System.out.println(x[j]+"i   " );
-		    
-	} System.out.println(maxValue+"iii"  );
-		x[i]= (double)C/w[i];
-		maxValue+=x[i]*v[i];
-		x[i+1] =maxValue ;
-		return x ;
+//	   x[i][0]= (double)C/w[i];
+//		maxValue+=x[i][0]*v[i];
+		x[n][0] =maxValue ;	
+   		return x;
 
 	}
 	
 	
 
+	double cw = 0.0;//当前背包重量
+	double cp = 0.0;//当前背包中物品价值
+	double bestp = 0.0;//当前最优价值
+	double[] perp = new double[1000];//单位物品价值排序后
+	double[] put= new double [1000];//设置是否装入
+
+	//按单位价值排序
+	void knapsack(int[] w,int[] v,int n)
+	{
+	    int i,j;
+	    int temp = 0;
+
+	    for(i=0;i<n;i++)
+	        perp[i]=v[i]/w[i];
+	    for(i=0;i<n-1;i++)
+	    {
+	        for(j=i+1;j<n;j++)
+	         if(perp[i]<perp[j])//冒泡排序perp[],sortv[],sortw[]
+	        {
+	           double t = perp[i];
+	            perp[i]=perp[i];
+	            perp[j]=t;
+
+	            temp = v[i];
+	            v[i]=v[j];
+	            v[j]=temp;
+
+	            temp=w[i];
+	            w[i]=w[j];
+	            w[j]=temp;
+	        }
+	    }
+	}
+
+	//回溯函数
+	void backtrack(int i,int[] w,int[] v,int C,int n)
+	{
+	     bound(i,w,v,n,C);
+	    if(i>=n)
+	    {
+	        bestp = cp;
+	        return ;
+	    }
+	    if(cw+w[i]<=C)
+	    {
+	        cw+=w[i];
+	        cp+=v[i];
+	        put[i]=1;
+	        backtrack(i+1,w,v,C,n);
+	        cw-=w[i];
+	        cp-=v[i];
+	    }
+	    if(bound(i+1,w,v,n,C)>bestp)//符合条件搜索右子数
+	        backtrack(i+1,w,v,C,n);
+	}
+
+	double[] Backtracking(int[] w,int[] v,int n,int C)
+	{
+		knapsack(w,v,n);
+		backtrack(0,w,v,C,n);
+		put[n] = bestp;
+		return put;
+	}
+	//计算上界函数
+	double bound(int i ,int[] w,int[] v,int n,int C)
+	{
+	    double leftw= C-cw;
+	    double b = cp;
+	    while(i<n && w[i]<=leftw)
+	    {
+	        leftw-=w[i];
+	        b+=v[i];
+	        i++;
+	    }
+	    if(i<n)
+	        b+=v[i]/w[i]*leftw;
+	    return b;
+
+	}
+
+
 	
 
-		//回溯算法
+		
+	
+	
+	
+	//动态规划算法
+	public int[] Dynamic(int w[ ], int v[ ],int n,int C)
+	{
+		  int i,j;
+		  int[] x = new int [10000];
+		  int[][] V = new int [10000][10000];
+		  for (i=0; i<=n; i++)   //初始化第0列
+		  {
+		      V[i][0]=0;
+		  }
+		  for (j=0; j<=C; j++)   //初始化第0行
+		  {
+		      V[0][j]=0;
+		  }
+		  for (i=1; i<=n; i++)   //计算第i行，进行第i次迭代
+		  {
+		    for (j=1; j<=C; j++)
+		    {
+		         if (j<w[i])
+		         {
+		             V[i][j]=V[i-1][j];
+		         }
+		         else
+		         {
+		             if(V[i-1][j] > V[i-1][j-w[i]]+v[i])
+		             {
+		                  V[i][j]=V[i-1][j];
+		             }
+		             else
+		             {
+		                 V[i][j]=V[i-1][j-w[i]]+v[i];
+		             }
+		         }
+
+		    }
+		  }
+		    j=C;    //求装入背包的物品
+		    for (i=n; i>0; i--)
+		    {
+		      if (V[i][j]>V[i-1][j])
+		      {
+		        x[i]=1;
+		        j=j-w[i];
+		      }
+		      else
+		      {
+		        x[i]=0;
+		      }
+		     }
+             x[n] = V[n][C];
+     		for(int j1 = 0;j1 <= n;j1++)
+     		{
+     			 System.out.println(x[j1]+"i   " );
+     			    
+     		} System.out.println(V[n-1][C]+"iii"  );
+     		
+		     return x;    //返回背包取得的最大价值
+
+	}
+
+	
+	
+	public double[][] Selectsort(double r[][], int first, int end){ 
+		 //插入排序
+        for (int i = 1; i < end; i++) {
+            //外层循环，从第二个开始比较
+            for (int j = i; j > 0; j--) {
+                //内存循环，与前面排好序的数据比较，如果后面的数据小于前面的则交换
+                if (r[j][0] < r[j - 1][0]) {
+                    double[] temp = new double[100];
+                    temp = r[j - 1];
+                    r[j - 1] = r[j];
+                    r[j] = temp;
+                } else {
+                    //如果不小于，说明插入完毕，退出内层循环
+                    break;
+                }
+            }
+        }
+        return r;
+	}
+	
+}
+
+
+/*
+//回溯算法
 	public int[] Backtracking(int w[], int v[], int n,int C)
 	{
 	   int cw=0, cv=0,bestv=0,k=0;
@@ -113,6 +279,12 @@ public class Algorithm {
 			}
 		}
 	  }
+			for(int j1 = 0;j1 <= n;j1++)
+	 		{
+	 			 System.out.println(x[j1]+"i   " );
+	 			    
+	 		}
+			
 	 return x;
 
 	}
@@ -134,89 +306,6 @@ public class Algorithm {
 	}
 
 
-	
-	
-	
-	//动态规划算法
-	public int[] Dynamic(int w[ ], int v[ ],int n,int C)
-	{
-		  int i,j;
-		  int[] x = new int [1000];
-		  int[][] V = new int [1000][1000];
-		  for (i=0; i<=n; i++)   //初始化第0列
-		  {
-		      V[i][0]=0;
-		  }
-		  for (j=0; j<=C; j++)   //初始化第0行
-		  {
-		      V[0][j]=0;
-		  }
-		  for (i=1; i<=n; i++)   //计算第i行，进行第i次迭代
-		  {
-		    for (j=1; j<=C; j++)
-		    {
-		         if (j<w[i])
-		         {
-		             V[i][j]=V[i-1][j];
-		         }
-		         else
-		         {
-		             if(V[i-1][j] > V[i-1][j-w[i]]+v[i])
-		             {
-		                  V[i][j]=V[i-1][j];
-		             }
-		             else
-		             {
-		                 V[i][j]=V[i-1][j-w[i]]+v[i];
-		             }
-		         }
-
-		    }
-		  }
-		    j=C;    //求装入背包的物品
-		    for (i=n; i>0; i--)
-		    {
-		      if (V[i][j]>V[i-1][j])
-		      {
-		        x[i]=1;
-		        j=j-w[i];
-		      }
-		      else
-		      {
-		        x[i]=0;
-		      }
-		     }
-             x[n+1] = V[n][C];
-		     return x;    //返回背包取得的最大价值
-
-	}
-
-	
-	
-	public double[][] Selectsort(double r[][], int first, int end){ 
-		 //插入排序
-        for (int i = 1; i < end; i++) {
-            //外层循环，从第二个开始比较
-            for (int j = i; j > 0; j--) {
-                //内存循环，与前面排好序的数据比较，如果后面的数据小于前面的则交换
-                if (r[j][0] < r[j - 1][0]) {
-                    double[] temp = new double[100];
-                    temp = r[j - 1];
-                    r[j - 1] = r[j];
-                    r[j] = temp;
-                } else {
-                    //如果不小于，说明插入完毕，退出内层循环
-                    break;
-                }
-            }
-        }
-        return r;
-	}
-	
-}
-
-
-/*
 
  	//快速排序
 	int Partition(double r[][], int first, int end)//划分
