@@ -22,9 +22,7 @@ public class Frame extends JFrame
 	double[] c = new double [100];
 	int wvsum;
 	int fileId = -1;
-	//给定常量值
-	public static final int TEXTAREA_ROWS = 200;
-	public static final int TEXTAREA_COLUMNS = 200;
+
 	/* 文本域，分别来存放物品的重量，价值*/
     JTextField choice; //用户选择
     
@@ -43,9 +41,9 @@ public class Frame extends JFrame
 	  
 
 
-	   JLabel Jwv = new JLabel("物品重量",JLabel.CENTER);
-	   JLabel Jvalue = new JLabel("物品价值",JLabel.CENTER);
-	   JLabel item1 = new JLabel("<html><body> 1.选择数据文件<br> 2.贪心算法<br> 3.回溯算法<br> 4.动态规划算法<br> </body></html>",JLabel.CENTER);
+	   JLabel Jweight = new JLabel("         物品重量          ",JLabel.CENTER);
+	   JLabel Jvalue = new JLabel("                         物品价值   ",JLabel.CENTER);
+	   JLabel item1 = new JLabel("<html><body>    1.选择数据文件 <br> 2.贪心算法<br> 3.回溯算法<br> 4.动态规划算法         </body></html>",JLabel.CENTER);
 	   JLabel item2 = new JLabel("<html><body>5.绘制散点图<br> 6.按重量比进行非递增排序<br> 7.以文件形式保存结果</body></html>",JLabel.CENTER);
 	   /*
 	   JLabel huisu = new JLabel("",JLabel.CENTER);
@@ -58,17 +56,19 @@ public class Frame extends JFrame
 
 
        //设置字体及背景设置
-	   item1.setFont(new Font("宋体",Font.BOLD,15));
+	   item1.setFont(new Font("宋体",Font.BOLD,20));
 	   item1.setForeground(Color.BLUE);
-	   
-	   Jwv.setFont(new Font("宋体",Font.BOLD,15));
-	   Jwv.setForeground(Color.BLUE);
-	   
-	   //Jvalue.setFont(new Font("宋体",Font.BOLD,15));
-	   //Jvalue.setForeground(Color.BLUE);
-	   
-	   item2.setFont(new Font("宋体",Font.BOLD,15));
+	   item1.setSize(100, 90);
+	   item2.setFont(new Font("宋体",Font.BOLD,20));
 	   item2.setForeground(Color.BLUE);
+	   item2.setSize(50, 90);
+	   Jweight.setFont(new Font("宋体",Font.BOLD,20));
+	   Jweight.setForeground(Color.BLUE);
+	   
+	   Jvalue.setFont(new Font("宋体",Font.BOLD,20));
+	   Jvalue.setForeground(Color.BLUE);
+	   
+
 	   /*
 	   filenames.setPreferredSize(new Dimension(100, 200));
 	   
@@ -87,8 +87,8 @@ public class Frame extends JFrame
 	   wv.setFont(new Font("宋体",Font.BOLD,15));
 	   wv.setForeground(Color.BLUE);
 */
-	   Tweight = new JTextArea(TEXTAREA_ROWS,TEXTAREA_COLUMNS);//给定列数和行数
-	   Tvalue = new JTextArea(TEXTAREA_ROWS,TEXTAREA_COLUMNS);//给定列数和行数
+	   Tweight = new JTextArea(20,30);//给定列数和行数
+	   Tvalue = new JTextArea(20,30);//给定列数和行数
 	   Tresult = new JTextArea(100,1000);//给定列数和行数
 		add(Tweight,BorderLayout.SOUTH);//边框布局管理器
 		add(Tvalue,BorderLayout.SOUTH);//边框布局管理器
@@ -97,83 +97,27 @@ public class Frame extends JFrame
 		//在文本框上添加滚动条
 		JScrollPane jspw = new JScrollPane(Tweight);
 		//设置矩形大小.参数依次为(矩形左上角横坐标x,矩形左上角纵坐标y，矩形长度，矩形宽度)
-		jspw.setBounds(13, 10, 350, 340);
+		//jspw.setBounds(13, 10, 350, 340);
 		//默认的设置是超过文本框才会显示滚动条，以下设置让滚动条一直显示
-		jspw.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//jspw.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		JScrollPane jspv = new JScrollPane();
-		jspv.setViewportView(Tvalue);
+		JScrollPane jspv = new JScrollPane(Tvalue);
+		//jspv.setSize(100,100);
+		//jspv.setViewportView(Tvalue);
 		//设置矩形大小.参数依次为(矩形左上角横坐标x,矩形左上角纵坐标y，矩形长度，矩形宽度)
-		jspv.setBounds(13, 10, 350, 340);
+		//jspv.setBounds(13, 10, 350, 340);
 		//默认的设置是超过文本框才会显示滚动条，以下设置让滚动条一直显示
-		jspv.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+		//jspv.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);JScrollPane.ScrollPaneConstraints.VERTICAL_SCROLLBAR_ALWAYS
+		//jspv.setVerticalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 	   choice = new JTextField(10);//给定列数的空的JTextField对象
 	   choice.setFont(new Font("宋体",Font.BOLD,15));//设置文本域中的字体
       
-	  //增加按钮
-	   Gbutton=new JButton("确定");
-	   Gbutton.setBackground(Color.pink);//设置按钮的颜色
-		//动作监听器
-		Gbutton.addActionListener(new ActionListener()
-	       {      
-	           public void actionPerformed(ActionEvent event)
-	           {    
-	        	  
-	        	  int select = Integer.parseInt(choice.getText());//从文本域中获取输入的值
-	        	  if(select == 1)
-	        	  {
-	        		 Text(); 
-	        	  }
-	        	  else if(select == 2)
-	        	  {
-	        		  Algorithm a = new Algorithm();
-	        		  double[] x = a.Greedy(w,v,types,beibaosize);
-	        	  }
-	        	  else if(select == 3)
-	        	  {
-	        		  Algorithm a = new Algorithm();
-	        		  int[] x = a.Backtracking(w,v,types,beibaosize);
-	        	  }
-	        	  else if(select == 4)
-	        	  {
-	        		  Algorithm a = new Algorithm();
-	        		  int[] x = a.Dynamic(w,v,types,beibaosize);
-	        	  }
-	        	  else if(select == 5)
-	        	  {
-	        		  
-	        	  }
-	        	  else if(select == 6)
-	        	  {
-	        		  for(int i = 0;i < types;i++)
-	        		  {
-	        			  c[i] =(double)v[i]/(double)w[i];
-	        		  }
-	        		  Algorithm a = new Algorithm();
-	        		  c = a.QuickSort(c, 0, types);
-	        		  for(int i = 0;i < types;i++)
-	        		  {
-	        			  Tresult.append("第"+(i+1)+"个物品的重量比为："+c[i]+"\n");
-	        		  }
-	        	  }
-	        	  else if(select == 7)
-	        	  {
-	        		  
-	        	  }
-	        	  else
-	        	  {
-	        		  JOptionPane.showMessageDialog(null,"所输入选择有误！\n请重新输入","提示消息",JOptionPane.ERROR_MESSAGE);  
-	                  //清空输入框  
-	                  choice.setText("");
-	        	  }
-	           }
-	       });
-		
+	 
 	   JPanel area=new JPanel();//增加面板
 	    area.setBackground(Color.CYAN);//设置面板的背景颜色
-		area.setLayout(new GridLayout(6,2));//网格布局，给定行数和列数
+		//area.setLayout(new GridLayout(6,2));//网格布局，给定行数和列数
+	    //area.setLayout(new BorderLayout());
 		//在面板上增加组件
 		area.add(item1);
 		area.add(item2);
@@ -187,17 +131,77 @@ public class Frame extends JFrame
 		area.add(wv);
 		*/		
 
-		area.add(Jwv);
+		area.add(Jweight);
 		area.add(Jvalue);
 		area.add(jspw);
 		area.add(jspv);
-		area.add(Tweight);
-		area.add(Tvalue);
+		//area.add(Tweight);
+		//area.add(Tvalue);
 		area.add(choice);
 		area.add(Gbutton);//在面板上添加按钮
 		//area.add(Tresult);
 		
 		add(area,BorderLayout.CENTER);//边框布局管理器
+			
+		 //增加按钮
+		  Gbutton=new JButton("确定");
+		   Gbutton.setBackground(Color.pink);//设置按钮的颜色
+			//动作监听器
+			Gbutton.addActionListener(new ActionListener()
+		       {      
+		           public void actionPerformed(ActionEvent event)
+		           {    
+		        	  
+		        	  int select = Integer.parseInt(choice.getText());//从文本域中获取输入的值
+		        	  if(select == 1)
+		        	  {
+		        		 Text(); 
+		        	  }
+		        	  else if(select == 2)
+		        	  {
+		        		  Algorithm a = new Algorithm();
+		        		  double[] x = new double[100];
+		        		  x = a.Greedy(w,v,types,beibaosize);
+		        	  }
+		        	  else if(select == 3)
+		        	  {
+		        		  Algorithm a = new Algorithm();
+		        		  int[] x = a.Backtracking(w,v,types,beibaosize);
+		        	  }
+		        	  else if(select == 4)
+		        	  {
+		        		  Algorithm a = new Algorithm();
+		        		  int[] x = a.Dynamic(w,v,types,beibaosize);
+		        	  }
+		        	  else if(select == 5)
+		        	  {
+		        		  
+		        	  }
+		        	  else if(select == 6)
+		        	  {
+		        		  for(int i = 0;i < types;i++)
+		        		  {
+		        			  c[i] =(double)v[i]/(double)w[i];
+		        		  }
+		        		  Algorithm a = new Algorithm();
+		        		  c = a.QuickSort(c, 0, types);
+		        		  for(int i = 0;i < types;i++)
+		        		  {
+		        			  Tresult.append("第"+(i+1)+"个物品的重量比为："+c[i]+"\n");
+		        		  }
+		        	  }
+		        	  else if(select == 7)
+		        	  {
+		        		  
+		        	  }
+		        	  else
+		        	  {
+		        		  JOptionPane.showMessageDialog(null,"所输入选择有误！\n请重新输入","提示消息",JOptionPane.ERROR_MESSAGE);  
+		                  //清空输入框  
+		                  choice.setText("");
+		        	  }
+		           }
+		       });
 			
 		
    }

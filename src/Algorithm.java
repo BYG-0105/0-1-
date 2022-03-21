@@ -7,7 +7,7 @@ public class Algorithm {
 	//Ì°ĞÄËã·¨
 	public double[] Greedy(int w[],int v[],int n, int C)
 	{
-		 double c[] = null;
+		 double[] c = new double[100];
 		 for(int i = 0;i < n;i++)
 		  {
 			  c[i] =(double)v[i]/(double)w[i];
@@ -33,7 +33,7 @@ public class Algorithm {
 				 }
 			 }
 		 }
-		 double x[] = null;
+		 double[] x = new double[100];
 		 for(int i = 0;i < n;i++)
 		 {
 			 x[i] = 0;
