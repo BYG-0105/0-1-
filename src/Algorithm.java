@@ -378,6 +378,7 @@ public class Algorithm {
       return r;
 	}
 	
+	//比较大小
 	int compare(double d1,double d2)
 	{
 		BigDecimal d11 = new BigDecimal(d1);
