@@ -17,7 +17,7 @@ public class Algorithm {
 		 {
 			 for(int j = i+1;j < n;j++)
 			 {
-				 if(c[i] < c[j])
+				 if(c[i] <= c[j])
 				 {
 					 double temp = c[i];
 					 c[i] = c[j];
@@ -43,9 +43,9 @@ public class Algorithm {
 		int i;
 		for (i=0; w[i]<C; i++ )
 		{
-		x[i]=1;
-		maxValue+=v[i] ;
-		C=C-w[i] ;
+		 x[i]=1;
+		 maxValue+=v[i] ;
+		 C=C-w[i] ;
 		}
 		x[i]= (double)C/w[i];
 		maxValue+=x[i]*v[i];
@@ -61,7 +61,9 @@ public class Algorithm {
 		//回溯算法
 	public int[] Backtracking(int w[], int v[], int n,int C)
 	{
-	   int cw=0, cv=0,bestv=0,k=0, x[] = null,bestx[] = null;
+	   int cw=0, cv=0,bestv=0,k=0;
+	   int[] x = new int [1000];
+	   int[] bestx = new int [1000];
        for (int i = 0; i < n ;i++)
 			   x[i]=2;
 			while (k>=0)
@@ -134,8 +136,8 @@ public class Algorithm {
 	public int[] Dynamic(int w[ ], int v[ ],int n,int C)
 	{
 		  int i,j;
-		  int x[] = null;
-		  int V[][] = null;
+		  int[] x = new int [1000];
+		  int[][] V = new int [1000][1000];
 		  for (i=0; i<=n; i++)   //初始化第0列
 		  {
 		      V[i][0]=0;

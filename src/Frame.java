@@ -3,10 +3,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +25,7 @@ public class Frame extends JFrame
 	double[][] c = new double [1000][2];
 	int wvsum;
 	int fileId = -1;
+	int dataname = 0;
 
 	/* 文本域，分别来存放物品的重量，价值*/
     JTextField choice; //用户选择
@@ -144,21 +148,42 @@ public class Frame extends JFrame
 		        		  Algorithm a = new Algorithm();
 		        		  double[] x = new double[100];
 		        		  x = a.Greedy(w,v,types,beibaosize);
-		        		  
-		        		  for(int i = 0;i<types;i++)
+		        		  Tresult.setText(null);
+		        		  Tresult.append("最大价值为："+x[types]+"\n");
+		        		  Tresult.append("解向量为：{ ");
+		        		  for(int i = 0;i<types-1;i++)
 		        		  {
-		        			  
+		        			  Tresult.append((int)x[i]+", ");
 		        		  }
+		        		  Tresult.append((int)x[types-1]+" }"+"\n");
 		        	  }
 		        	  else if(select == 3)
 		        	  {
 		        		  Algorithm a = new Algorithm();
-		        		  int[] x = a.Backtracking(w,v,types,beibaosize);
+		        		  int[] x = new int[100];
+		        		  x = a.Backtracking(w,v,types,beibaosize);
+		        		  Tresult.setText(null);
+		        		  Tresult.append("最大价值为："+x[types]+"\n");
+		        		  Tresult.append("解向量为：{ ");
+		        		  for(int i = 0;i<types-1;i++)
+		        		  {
+		        			  Tresult.append(x[i]+", ");
+		        		  }
+		        		  Tresult.append(x[types-1]+" }"+"\n");
 		        	  }
 		        	  else if(select == 4)
 		        	  {
 		        		  Algorithm a = new Algorithm();
-		        		  int[] x = a.Dynamic(w,v,types,beibaosize);
+		        		  int[] x = new int[100];
+		        		  x = a.Dynamic(w,v,types,beibaosize);
+		        		  Tresult.setText(null);
+		        		  Tresult.append("最大价值为："+x[types]+"\n");
+		        		  Tresult.append("解向量为：{ ");
+		        		  for(int i = 0;i<types-1;i++)
+		        		  {
+		        			  Tresult.append(x[i]+", ");
+		        		  }
+		        		  Tresult.append(x[types-1]+" }"+"\n");
 		        	  }
 		        	  else if(select == 5)
 		        	  {
@@ -184,7 +209,22 @@ public class Frame extends JFrame
 		        	  }
 		        	  else if(select == 7)
 		        	  {
-		        		  
+		        		  try {
+
+		        			    File writeName = new File("D:\\2021-2022\\大三下\\软件工程经济\\Git\\0-1\\0-1-knapsack\\data"+dataname+".txt"); // 相对路径，如果没有则要建立一个新的output.txt文件
+		        			    dataname++;
+		        			    if(!writeName.exists()) {
+		        			        writeName.createNewFile(); // 创建新文件,有同名的文件的话直接覆盖
+		        			    }
+		        			    FileWriter writer = new FileWriter(writeName);
+		        			    BufferedWriter out = new BufferedWriter(writer);
+		        			    String data = Tresult.getText();
+		        			    out.write(data);
+		        			    out.flush(); // 把缓存区内容压入文件    out.close();
+		        			} catch (IOException e) {
+		        			    e.printStackTrace();
+		        			}
+		        		  JOptionPane.showMessageDialog(null,"结果保存成功","提示消息",JOptionPane.INFORMATION_MESSAGE);  
 		        	  }
 		        	  else
 		        	  {
