@@ -18,9 +18,9 @@ public  class Text extends JFrame {
 		   JLabel item1 = new JLabel("0-1背包问题",JLabel.CENTER);
 		   JLabel item2 = new JLabel("选择所要读取数据的文件（共有10个文件） ",JLabel.CENTER);
 	        //设置字体及背景设置
-		   item1.setFont(new Font("宋体",Font.BOLD,15));
+		   item1.setFont(new Font("宋体",Font.BOLD,23));
 		   item1.setForeground(Color.BLUE);
-		   item2.setFont(new Font("宋体",Font.BOLD,15));
+		   item2.setFont(new Font("宋体",Font.BOLD,22));
 		   item2.setForeground(Color.BLUE);
 		   
 		   JRadioButton jrb1=new JRadioButton("beibao0");  
@@ -33,6 +33,19 @@ public  class Text extends JFrame {
 		   JRadioButton jrb8=new JRadioButton("beibao7");
 		   JRadioButton jrb9=new JRadioButton("beibao8");  
 		   JRadioButton jrb10=new JRadioButton("beibao9");
+		   
+		   jrb1.setFont(new Font("宋体",Font.BOLD,22));
+		   jrb2.setFont(new Font("宋体",Font.BOLD,22));
+		   jrb3.setFont(new Font("宋体",Font.BOLD,22));
+		   jrb4.setFont(new Font("宋体",Font.BOLD,22));
+		   jrb5.setFont(new Font("宋体",Font.BOLD,22));
+		   jrb6.setFont(new Font("宋体",Font.BOLD,22));
+		   jrb7.setFont(new Font("宋体",Font.BOLD,22));
+		   jrb8.setFont(new Font("宋体",Font.BOLD,22));
+		   jrb9.setFont(new Font("宋体",Font.BOLD,22));
+		   jrb10.setFont(new Font("宋体",Font.BOLD,22));
+
+
 		   
 		   ButtonGroup bg=new ButtonGroup(); 
 		   
@@ -48,15 +61,28 @@ public  class Text extends JFrame {
 		   bg.add(jrb10);
 		   jrb1.setSelected(true);  
 		   
-	     
+	       JPanel jrbarea=new JPanel();//增加面板
+	       jrbarea.add(jrb1);
+	       jrbarea.add(jrb2);
+	       jrbarea.add(jrb3);
+	       jrbarea.add(jrb4);
+	       jrbarea.add(jrb5);
+	       jrbarea.add(jrb6);
+	       jrbarea.add(jrb7);
+	       jrbarea.add(jrb8);
+	       jrbarea.add(jrb9);
+	       jrbarea.add(jrb10);
+	      // jrbarea.setLayout(new GridLayout(10,1));//网格布局，给定行数和列数
+
+
 	      
 	       JPanel area=new JPanel();//增加面板
-		   area.setBackground(Color.CYAN);//设置面板的背景颜色
-			area.setLayout(new GridLayout(5,1));//网格布局，给定行数和列数
+		   area.setBackground(Color.PINK);//设置面板的背景颜色
+			area.setLayout(new GridLayout(4,1));//网格布局，给定行数和列数
 			//在面板上增加组件
 			area.add(item1);
 			area.add(item2);
-		   
+		    area.add(jrbarea);
 
 			add(area,BorderLayout.CENTER);//边框布局管理器
 			

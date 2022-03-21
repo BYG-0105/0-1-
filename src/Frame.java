@@ -36,25 +36,25 @@ public class Frame extends JFrame
 	
 	  
 	  
-	   JLabel item = new JLabel("0-1背包问题",JLabel.CENTER);
-	   JLabel item1 = new JLabel(" ",JLabel.CENTER);
+
 
 	   JLabel Jwv = new JLabel("物品重量及价值",JLabel.CENTER);
 	   //JLabel Jvalue = new JLabel("物品价值",JLabel.CENTER);
-	   JLabel filenames = new JLabel("<html><body> 1.选择数据文件<br> 2.贪心算法<br> 3.回溯算法<br> 4.动态规划算法<br> 5.绘制散点图<br> 6.按重量比进行非递增排序<br> 7.以文件形式保存结果</body></html>",JLabel.CENTER);
-	   JLabel tanxin = new JLabel("",JLabel.CENTER);
+	   JLabel item1 = new JLabel("<html><body> 1.选择数据文件<br> 2.贪心算法<br> 3.回溯算法<br> 4.动态规划算法<br> </body></html>",JLabel.CENTER);
+	   JLabel item2 = new JLabel("<html><body>5.绘制散点图<br> 6.按重量比进行非递增排序<br> 7.以文件形式保存结果</body></html>",JLabel.CENTER);
+	   /*
 	   JLabel huisu = new JLabel("",JLabel.CENTER);
 	   JLabel dtgh = new JLabel("",JLabel.CENTER);
 	   JLabel paint = new JLabel("",JLabel.CENTER);
 	   JLabel wv = new JLabel("",JLabel.CENTER);
 	   JLabel txt = new JLabel("",JLabel.CENTER);
 
-
+*/
 
 
        //设置字体及背景设置
-	   item.setFont(new Font("宋体",Font.BOLD,15));
-	   item.setForeground(Color.BLUE);
+	   item1.setFont(new Font("宋体",Font.BOLD,15));
+	   item1.setForeground(Color.BLUE);
 	   
 	   Jwv.setFont(new Font("宋体",Font.BOLD,15));
 	   Jwv.setForeground(Color.BLUE);
@@ -62,8 +62,9 @@ public class Frame extends JFrame
 	   //Jvalue.setFont(new Font("宋体",Font.BOLD,15));
 	   //Jvalue.setForeground(Color.BLUE);
 	   
-	   filenames.setFont(new Font("宋体",Font.BOLD,15));
-	   filenames.setForeground(Color.BLUE);
+	   item2.setFont(new Font("宋体",Font.BOLD,15));
+	   item2.setForeground(Color.BLUE);
+	   /*
 	   filenames.setPreferredSize(new Dimension(100, 200));
 	   
 	   tanxin.setFont(new Font("宋体",Font.BOLD,15));
@@ -80,7 +81,7 @@ public class Frame extends JFrame
 	   
 	   wv.setFont(new Font("宋体",Font.BOLD,15));
 	   wv.setForeground(Color.BLUE);
-
+*/
 	   Tweight = new JTextArea(TEXTAREA_ROWS,TEXTAREA_COLUMNS);//给定列数和行数
 	   Tvalue = new JTextArea(TEXTAREA_ROWS,TEXTAREA_COLUMNS);//给定列数和行数
 	   Tresult = new JTextArea(100,1000);//给定列数和行数
@@ -106,7 +107,7 @@ public class Frame extends JFrame
 	        	  {
 	        		  Text text = new Text();
 	        		  text.setTitle("0-1背包问题");//定义名称
-	        		  text.setBounds(190,60, 650,500);//定义位置及大小
+	        		  text.setBounds(190,60, 600,350);//定义位置及大小
 	        		  text.setVisible(true);
 	        		  text.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//关闭
 	        		  int fileId = text.getID();
@@ -212,9 +213,9 @@ public class Frame extends JFrame
 	    area.setBackground(Color.CYAN);//设置面板的背景颜色
 		area.setLayout(new GridLayout(6,1));//网格布局，给定行数和列数
 		//在面板上增加组件
-		//area.add(item);
-		//area.add(item1);
-		area.add(filenames);
+		area.add(item1);
+		area.add(item2);
+		//area.add(filenames);
 		/*
 		area.add(tanxin);
 		area.add(huisu);
