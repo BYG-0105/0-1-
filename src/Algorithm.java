@@ -183,25 +183,31 @@ public class Algorithm {
 
 	}
 	//快速排序
-	int Partition(double r[], int first, int end)//划分
+	int Partition(double r[][], int first, int end)//划分
 	{				
 		int i = first, j = end;
 		//初始化待划分区间
 		while (i < j)	{
-			while (i < j && r[i] <= r[j]) j--;
+			while (i < j && r[i][0] <= r[j][0]) j--;
 			//右侧扫描
 			if (i < j)
 			{
 				//将较小记录交换到前面
-				double temp = r[i]; r[i] = r[j]; r[j] = temp;
+				double[] temp = new double[100];
+				temp = r[i]; r[i] = r[j]; r[j] = temp;
+				 
+				
 				i++;
 			}
-			while (i < j && r[i] <= r[j]) i++;
+			while (i < j && r[i][0] <= r[j][0]) i++;
 			//左侧扫描
 			if (i < j) 
 			{
 				//将较大记录交换到后面
-				double temp = r[i]; r[i] = r[j]; r[j] = temp;    
+				double[] temp = new double[100];
+				temp = r[i]; r[i] = r[j]; r[j] = temp; 
+				 
+				
 				j--;
 			}
 		}
@@ -209,7 +215,7 @@ public class Algorithm {
 	}
 
 
-	public double[] QuickSort(double r[], int first, int end){  
+	public double[][] QuickSort(double r[][], int first, int end){  
 		//快速排序
 		int pivot;
 		if (first < end) {

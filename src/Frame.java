@@ -17,9 +17,9 @@ public class Frame extends JFrame
 	JFrame File = new JFrame(); //选择数据文件界面
 	int beibaosize;
 	int types;
-	int[] w = new int [100];
-	int[] v = new int [100];
-	double[] c = new double [100];
+	int[] w = new int [1000];
+	int[] v = new int [1000];
+	double[][] c = new double [1000][2];
 	int wvsum;
 	int fileId = -1;
 
@@ -28,8 +28,7 @@ public class Frame extends JFrame
     
 	
 	JButton Gbutton;//按钮，查看0-1背包问题结果
-	JTextArea Tweight;//文本区，用来输出物品重量
-	JTextArea Tvalue;//文本区，用来输出物品价值
+	JTextArea Twv;//文本区，用来输出物品重量,物品价值
 	JTextArea Tresult;//文本区，用来输出物品价值
     ArrayList<Goods> list = new ArrayList<Goods>();;//存放从文件读取的物品对象
     
@@ -44,6 +43,8 @@ public class Frame extends JFrame
 	 
 	   JLabel item1 = new JLabel("<html><body>1.选择数据文件 <br> 2.贪心算法<br> 3.回溯算法<br> 4.动态规划算法<br>5.绘制散点图<br> 6.按重量比进行非递增排序<br> 7.以文件形式保存结果</body></html>",JLabel.CENTER);
 	   JLabel item2 = new JLabel("                          ",JLabel.CENTER);
+	   JLabel item3 = new JLabel("输入你的选择",JLabel.CENTER);
+
 	   /*
 	   JLabel huisu = new JLabel("",JLabel.CENTER);
 	   JLabel dtgh = new JLabel("",JLabel.CENTER);
@@ -55,13 +56,12 @@ public class Frame extends JFrame
 
 
        //设置字体及背景设置
-	   item1.setFont(new Font("宋体",Font.BOLD,20));
+	   item1.setFont(new Font("宋体",Font.BOLD,18));
 	   item1.setForeground(Color.BLUE);
-	   item1.setSize(100, 90);
 	   item2.setFont(new Font("宋体",Font.BOLD,20));
 	   item2.setForeground(Color.BLUE);
-	   item2.setSize(50, 90);
-	  
+	   item3.setFont(new Font("宋体",Font.BOLD,18));
+	   item3.setForeground(Color.BLUE);
 	   
 
 	   /*
@@ -82,21 +82,19 @@ public class Frame extends JFrame
 	   wv.setFont(new Font("宋体",Font.BOLD,15));
 	   wv.setForeground(Color.BLUE);
 */
-	   Tweight = new JTextArea(20,30);//给定列数和行数
-	   Tvalue = new JTextArea(20,30);//给定列数和行数
-	   Tresult = new JTextArea(100,1000);//给定列数和行数
-		add(Tweight,BorderLayout.SOUTH);//边框布局管理器
-		add(Tvalue,BorderLayout.SOUTH);//边框布局管理器
-		//add(Tresult,BorderLayout.SOUTH);//边框布局管理器
+	   Twv = new JTextArea(20,30);//给定列数和行数
+	   Tresult = new JTextArea(20,30);//给定列数和行数
+		add(Twv,BorderLayout.SOUTH);//边框布局管理器
+		add(Tresult,BorderLayout.SOUTH);//边框布局管理器
 
 		//在文本框上添加滚动条
-		JScrollPane jspw = new JScrollPane(Tweight);
+		JScrollPane jspwv = new JScrollPane(Twv);
 		//设置矩形大小.参数依次为(矩形左上角横坐标x,矩形左上角纵坐标y，矩形长度，矩形宽度)
 		//jspw.setBounds(13, 10, 350, 340);
 		//默认的设置是超过文本框才会显示滚动条，以下设置让滚动条一直显示
 		//jspw.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		JScrollPane jspv = new JScrollPane(Tvalue);
+		JScrollPane jspr = new JScrollPane(Tresult);
 		//jspv.setSize(100,100);
 		//jspv.setViewportView(Tvalue);
 		//设置矩形大小.参数依次为(矩形左上角横坐标x,矩形左上角纵坐标y，矩形长度，矩形宽度)
@@ -105,8 +103,8 @@ public class Frame extends JFrame
 		//jspv.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);JScrollPane.ScrollPaneConstraints.VERTICAL_SCROLLBAR_ALWAYS
 		//jspv.setVerticalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-	   choice = new JTextField(10);//给定列数的空的JTextField对象
-	   choice.setFont(new Font("宋体",Font.BOLD,15));//设置文本域中的字体
+	   choice = new JTextField(15);//给定列数的空的JTextField对象
+	   choice.setFont(new Font("宋体",Font.BOLD,20));//设置文本域中的字体
       
 	 
 	   JPanel area=new JPanel();//增加面板
@@ -117,25 +115,12 @@ public class Frame extends JFrame
 		area.add(item1);
 		area.add(item2);
 
-		//area.add(filenames);
-		/*
-		area.add(tanxin);
-		area.add(huisu);
-		area.add(dtgh);
-		area.add(paint);
-		area.add(wv);
-		*/		
 
-		//area.add(Jweight);
-		//area.add(Jvalue);
-		area.add(jspw);
-		area.add(jspv);
-		//area.add(Tweight);
-		//area.add(Tvalue);
-		area.add(choice);
+		area.add(jspwv);
+		area.add(jspr);
+		area.add(item3);
 
-		//area.add(Tresult);
-		
+		area.add(choice);		
 		add(area,BorderLayout.CENTER);//边框布局管理器
 			
 		 //增加按钮
@@ -176,13 +161,14 @@ public class Frame extends JFrame
 		        	  {
 		        		  for(int i = 0;i < types;i++)
 		        		  {
-		        			  c[i] =(double)v[i]/(double)w[i];
+		        			  c[i][0] =(double)v[i]/(double)w[i];
+		        			  c[i][1] = i+1;
 		        		  }
 		        		  Algorithm a = new Algorithm();
 		        		  c = a.QuickSort(c, 0, types);
 		        		  for(int i = 0;i < types;i++)
 		        		  {
-		        			  Tresult.append("第"+(i+1)+"个物品的重量比为："+c[i]+"\n");
+		        			  Tresult.append("第"+(int)c[i][1]+"个物品的重量比为："+c[i][0]+"\n");
 		        		  }
 		        	  }
 		        	  else if(select == 7)
@@ -385,12 +371,13 @@ public class Frame extends JFrame
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-						
+							 Twv.append(" 物品个数: " +types+"    "+" 背包容量: " +beibaosize+"\n");
+							 int i = 1;
 		        		  for (Goods tmp : list)
 		        		   { 
 		        			 //将给定的文本追加到文本区的已有文本的尾部
-		        			  Tweight.append(" 重量: " +tmp.getWeight()+"\n");
-		        			  Tvalue.append(" 价值: " +tmp.getValue()+"\n");
+		        			  Twv.append("第"+i+"个物品： 重量: " +tmp.getWeight()+"   "+" 价值: " +tmp.getValue()+"\n");
+		        			 i++;
 		        	       } 
 		        		  
 		           }
