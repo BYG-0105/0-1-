@@ -8,7 +8,7 @@ import javax.swing.*;
 public  class Text extends JFrame {
 
 		public int fileId;
-		static JFrame File = new JFrame(); //选择数据文件界面
+		JFrame File = new JFrame(); //选择数据文件界面
 	    
 	  public Text()
 	   {
@@ -88,7 +88,8 @@ public  class Text extends JFrame {
 			
 			
 			//增加按钮
-			Gbutton=new JButton("查看");
+			Gbutton=new JButton("确定");
+			Gbutton.setFont(new Font("宋体",Font.BOLD,20));
 			Gbutton.setBackground(Color.pink);//设置按钮的颜色
 			area.add(Gbutton);//在面板上添加按钮
 			//动作监听器
@@ -138,7 +139,7 @@ public  class Text extends JFrame {
 		        		  fileId = 10;
 		        	  }
 		        	 fileId--;
-		        	  File.dispose(); //选择数据文件界面关闭
+		        	 File.dispose(); //选择数据文件界面关闭
 		           }
 		       });
 			

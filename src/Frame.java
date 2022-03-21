@@ -38,8 +38,8 @@ public class Frame extends JFrame
 	  
 
 
-	   JLabel Jwv = new JLabel("物品重量及价值",JLabel.CENTER);
-	   //JLabel Jvalue = new JLabel("物品价值",JLabel.CENTER);
+	   JLabel Jwv = new JLabel("物品重量",JLabel.CENTER);
+	   JLabel Jvalue = new JLabel("物品价值",JLabel.CENTER);
 	   JLabel item1 = new JLabel("<html><body> 1.选择数据文件<br> 2.贪心算法<br> 3.回溯算法<br> 4.动态规划算法<br> </body></html>",JLabel.CENTER);
 	   JLabel item2 = new JLabel("<html><body>5.绘制散点图<br> 6.按重量比进行非递增排序<br> 7.以文件形式保存结果</body></html>",JLabel.CENTER);
 	   /*
@@ -114,6 +114,7 @@ public class Frame extends JFrame
 	        		  int Gweight;
 	        		  double Gvalue;
 	        		 
+	        		  /*
 	        		  BufferedReader reader = null;
 					try {
 						reader = new BufferedReader(new FileReader("beibao"+fileId+".txt"));
@@ -163,6 +164,7 @@ public class Frame extends JFrame
 	        			  Tweight.append(" 重量: " +tmp.getWeight()+"\n");
 	        			  Tvalue.append(" 价值: " +tmp.getValue()+"\n");
 	        	       } 
+	        	       */
 	        	  }
 	        	  else if(select == 2)
 	        	  {
@@ -211,7 +213,7 @@ public class Frame extends JFrame
 		
 	   JPanel area=new JPanel();//增加面板
 	    area.setBackground(Color.CYAN);//设置面板的背景颜色
-		area.setLayout(new GridLayout(6,1));//网格布局，给定行数和列数
+		area.setLayout(new GridLayout(4,2));//网格布局，给定行数和列数
 		//在面板上增加组件
 		area.add(item1);
 		area.add(item2);
@@ -224,7 +226,7 @@ public class Frame extends JFrame
 		area.add(wv);
 		*/
 		area.add(Jwv);
-		//area.add(Jvalue);
+		area.add(Jvalue);
 		area.add(Tweight);
 		area.add(Tvalue);
 		area.add(choice);
