@@ -145,6 +145,8 @@ public class Frame extends JFrame
 		        	  }
 		        	  else if(select == 2)
 		        	  {
+		        		  long start=System.currentTimeMillis();
+		        		  
 		        		  Algorithm a = new Algorithm();
 		        		  double[][] x = new double[1000][1000];
 		        		  for(int i = 0;i < types;i++)
@@ -153,6 +155,9 @@ public class Frame extends JFrame
 		        		  }
 
 		        		  x = a.Greedy(x,w,v,types,beibaosize);
+		        		  long end=System.currentTimeMillis();
+		        		  long Time=end-start;
+		        		  
 		        		  Tresult.setText(null);
 		        		  Tresult.append("最大价值为："+x[types][0]+"\n");
 		        		  Tresult.append("物品（重量）：{ ");
@@ -167,6 +172,8 @@ public class Frame extends JFrame
 		        			  Tresult.append(x[i][0]+", ");
 		        		  }
 		        		  Tresult.append(x[types-1][0]+" }"+"\n");
+		        		  Tresult.append("运行时间为："+Time+"毫秒\n");
+		        		  
 		        	  }
 		        	  else if(select == 3)
 		        	  {
