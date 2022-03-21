@@ -41,10 +41,9 @@ public class Frame extends JFrame
 	  
 
 
-	   JLabel Jweight = new JLabel("         物品重量          ",JLabel.CENTER);
-	   JLabel Jvalue = new JLabel("                         物品价值   ",JLabel.CENTER);
-	   JLabel item1 = new JLabel("<html><body>    1.选择数据文件 <br> 2.贪心算法<br> 3.回溯算法<br> 4.动态规划算法         </body></html>",JLabel.CENTER);
-	   JLabel item2 = new JLabel("<html><body>5.绘制散点图<br> 6.按重量比进行非递增排序<br> 7.以文件形式保存结果</body></html>",JLabel.CENTER);
+	 
+	   JLabel item1 = new JLabel("<html><body>1.选择数据文件 <br> 2.贪心算法<br> 3.回溯算法<br> 4.动态规划算法<br>5.绘制散点图<br> 6.按重量比进行非递增排序<br> 7.以文件形式保存结果</body></html>",JLabel.CENTER);
+	   JLabel item2 = new JLabel("                          ",JLabel.CENTER);
 	   /*
 	   JLabel huisu = new JLabel("",JLabel.CENTER);
 	   JLabel dtgh = new JLabel("",JLabel.CENTER);
@@ -62,11 +61,7 @@ public class Frame extends JFrame
 	   item2.setFont(new Font("宋体",Font.BOLD,20));
 	   item2.setForeground(Color.BLUE);
 	   item2.setSize(50, 90);
-	   Jweight.setFont(new Font("宋体",Font.BOLD,20));
-	   Jweight.setForeground(Color.BLUE);
-	   
-	   Jvalue.setFont(new Font("宋体",Font.BOLD,20));
-	   Jvalue.setForeground(Color.BLUE);
+	  
 	   
 
 	   /*
@@ -131,14 +126,14 @@ public class Frame extends JFrame
 		area.add(wv);
 		*/		
 
-		area.add(Jweight);
-		area.add(Jvalue);
+		//area.add(Jweight);
+		//area.add(Jvalue);
 		area.add(jspw);
 		area.add(jspv);
 		//area.add(Tweight);
 		//area.add(Tvalue);
 		area.add(choice);
-		area.add(Gbutton);//在面板上添加按钮
+
 		//area.add(Tresult);
 		
 		add(area,BorderLayout.CENTER);//边框布局管理器
@@ -202,7 +197,7 @@ public class Frame extends JFrame
 		        	  }
 		           }
 		       });
-			
+			area.add(Gbutton);//在面板上添加按钮
 		
    }
 
