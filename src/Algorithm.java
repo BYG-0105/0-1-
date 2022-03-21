@@ -178,20 +178,7 @@ public class Algorithm {
 		        x[i]=0;
 		      }
 		     }
-/*
-		     printf("所装入的物品分别为：");
-		     for(i = 1;i <= n;i++)
-		     {
-
-		         if(x[i] == 1)
-		         {
-		             printf("物品 %d  ",i);
-		         }
-
-		     }
-		     printf("\n");
-		     printf("背包最优解为 %d \n",V[n][C]);
-		     */
+             x[n+1] = V[n][C];
 		     return x;    //返回背包取得的最大价值
 
 	}
