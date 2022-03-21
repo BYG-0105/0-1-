@@ -3,21 +3,25 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.*;
 import java.awt.*;
 public class Frame extends JFrame
 {
+	JFrame File = new JFrame(); //选择数据文件界面
 	int beibaosize;
 	int types;
-	int w[];
-	int v[];
-	double c[];
+	int[] w = new int [100];
+	int[] v = new int [100];
+	double[] c = new double [100];
 	int wvsum;
+	int fileId = -1;
 	//给定常量值
 	public static final int TEXTAREA_ROWS = 200;
 	public static final int TEXTAREA_COLUMNS = 200;
@@ -90,6 +94,20 @@ public class Frame extends JFrame
 		add(Tvalue,BorderLayout.SOUTH);//边框布局管理器
 		//add(Tresult,BorderLayout.SOUTH);//边框布局管理器
 
+		//在文本框上添加滚动条
+		JScrollPane jspw = new JScrollPane(Tweight);
+		//设置矩形大小.参数依次为(矩形左上角横坐标x,矩形左上角纵坐标y，矩形长度，矩形宽度)
+		jspw.setBounds(13, 10, 350, 340);
+		//默认的设置是超过文本框才会显示滚动条，以下设置让滚动条一直显示
+		jspw.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		JScrollPane jspv = new JScrollPane();
+		jspv.setViewportView(Tvalue);
+		//设置矩形大小.参数依次为(矩形左上角横坐标x,矩形左上角纵坐标y，矩形长度，矩形宽度)
+		jspv.setBounds(13, 10, 350, 340);
+		//默认的设置是超过文本框才会显示滚动条，以下设置让滚动条一直显示
+		jspv.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
 
 	   choice = new JTextField(10);//给定列数的空的JTextField对象
 	   choice.setFont(new Font("宋体",Font.BOLD,15));//设置文本域中的字体
@@ -106,77 +124,22 @@ public class Frame extends JFrame
 	        	  int select = Integer.parseInt(choice.getText());//从文本域中获取输入的值
 	        	  if(select == 1)
 	        	  {
-	        		  Text text = new Text();
-	        		  int fileId = text.getID();
-	        		  int Gweight;
-	        		  double Gvalue;
-	        		 
-	        		  
-	        		  BufferedReader reader = null;
-					try {
-						reader = new BufferedReader(new FileReader("beibao"+fileId+".txt"));
-					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-	        		  String line;
-	        		  int flag = 0;
-	        		  wvsum = 0;
-						try {
-							while((line=reader.readLine())!= null)
-							{
-								String stringArray[] = line.split(" ");
-								if(flag == 0)
-								{
-									 beibaosize = Integer.parseInt(stringArray[0]);
-									 types = Integer.parseInt(stringArray[1]);
-									 flag = 1;
-								}
-								else
-								{
-								  Gweight = Integer.parseInt(stringArray[0]);
-								  Gvalue = Integer.parseInt(stringArray[1]);
-								  w[wvsum] = Integer.parseInt(stringArray[0]);
-								  v[wvsum] = Integer.parseInt(stringArray[1]);
-								  wvsum++;
-								  Goods goods = new Goods(Gweight,Gvalue);
-								  list.add(goods);
-								}
-								 
-							}
-						} catch (NumberFormatException | IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-	        		  try {
-						reader.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	        		  
-	        		  for (Goods tmp : list)
-	        		   { 
-	        			 //将给定的文本追加到文本区的已有文本的尾部
-	        			  Tweight.append(" 重量: " +tmp.getWeight()+"\n");
-	        			  Tvalue.append(" 价值: " +tmp.getValue()+"\n");
-	        	       } 
-	        	       
+	        		 Text(); 
 	        	  }
 	        	  else if(select == 2)
 	        	  {
 	        		  Algorithm a = new Algorithm();
-	        		  double x[] = a.Greedy(w,v,types,beibaosize);
+	        		  double[] x = a.Greedy(w,v,types,beibaosize);
 	        	  }
 	        	  else if(select == 3)
 	        	  {
 	        		  Algorithm a = new Algorithm();
-	        		  int x[] = a.Backtracking(w,v,types,beibaosize);
+	        		  int[] x = a.Backtracking(w,v,types,beibaosize);
 	        	  }
 	        	  else if(select == 4)
 	        	  {
 	        		  Algorithm a = new Algorithm();
-	        		  int x[] = a.Dynamic(w,v,types,beibaosize);
+	        		  int[] x = a.Dynamic(w,v,types,beibaosize);
 	        	  }
 	        	  else if(select == 5)
 	        	  {
@@ -210,10 +173,11 @@ public class Frame extends JFrame
 		
 	   JPanel area=new JPanel();//增加面板
 	    area.setBackground(Color.CYAN);//设置面板的背景颜色
-		area.setLayout(new GridLayout(4,2));//网格布局，给定行数和列数
+		area.setLayout(new GridLayout(6,2));//网格布局，给定行数和列数
 		//在面板上增加组件
 		area.add(item1);
 		area.add(item2);
+
 		//area.add(filenames);
 		/*
 		area.add(tanxin);
@@ -221,9 +185,12 @@ public class Frame extends JFrame
 		area.add(dtgh);
 		area.add(paint);
 		area.add(wv);
-		*/
+		*/		
+
 		area.add(Jwv);
 		area.add(Jvalue);
+		area.add(jspw);
+		area.add(jspv);
 		area.add(Tweight);
 		area.add(Tvalue);
 		area.add(choice);
@@ -235,14 +202,7 @@ public class Frame extends JFrame
 		
    }
 
-  
-  
-  public  class Text extends JFrame {
-
-		public int fileId;
-		JFrame File = new JFrame(); //选择数据文件界面
-	
-	  public Text()
+	  public void Text()
 	   {
 			
 		   JButton Gbutton;//按钮，查看数据文件信息
@@ -371,21 +331,80 @@ public class Frame extends JFrame
 		        	  }
 		        	 fileId--;
 		        	  File.dispose(); //选择数据文件界面关闭
+		        	  
+		        	  
+		        	  
+
+	        	     int Gweight;
+		        	 double Gvalue;
+		        		  String filePath = "D:\\2021-2022\\大三下\\软件工程经济\\Git\\0-1\\0-1-knapsack\\res\\beibao"+fileId+".in";
+		        	        FileInputStream fin = null;
+							try {
+								fin = new FileInputStream(filePath);
+							} catch (FileNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+		        	        InputStreamReader reader = new InputStreamReader(fin);
+		        	        BufferedReader buffReader = new BufferedReader(reader);
+		        	       
+						
+		        		  String line;
+		        		  int flag = 0;
+		        		  wvsum = 0;
+							
+								try {
+									while((line=buffReader.readLine())!= null)
+									{
+										String stringArray[] = line.split(" ");
+										if(flag == 0)
+										{
+											 beibaosize = Integer.parseInt(stringArray[0]);
+											 types = Integer.parseInt(stringArray[1]);
+											 flag = 1;
+										}
+										else
+										{
+										  Gweight = Integer.parseInt(stringArray[0]);
+										  Gvalue = Integer.parseInt(stringArray[1]);
+										  w[wvsum] = Integer.parseInt(stringArray[0]);
+										  v[wvsum] = Integer.parseInt(stringArray[1]);
+										  wvsum++;
+										  Goods goods = new Goods(Gweight,Gvalue);
+										  list.add(goods);
+										}
+										 
+									}
+								} catch (NumberFormatException | IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							
+							try {
+								reader.close();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						
+		        		  for (Goods tmp : list)
+		        		   { 
+		        			 //将给定的文本追加到文本区的已有文本的尾部
+		        			  Tweight.append(" 重量: " +tmp.getWeight()+"\n");
+		        			  Tvalue.append(" 价值: " +tmp.getValue()+"\n");
+		        	       } 
+		        		  
 		           }
 		       });
+			
 			File.setTitle("0-1背包问题");//定义名称
 			File.setBounds(190,60, 600,350);//定义位置及大小
 			File.setVisible(true);
 			File.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//关闭
+			
+			
+			
 	   }
-	  public int getID()
-	  {
-		  return fileId;
-	  }
 
-
-
-
-}
 
 }
